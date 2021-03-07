@@ -1,9 +1,4 @@
-<header>
-  <nav id="navbar">
-    <%= render TuneWeb.HeaderView, "help.html", socket: @socket %>
-  </nav>
-</header>
-<main role="main">
+<main role="main" class="main--full-player">
   <section id="full-player">
     <a href="#" class="alert alert-info" role="alert"
       phx-click="lv:clear-flash"
@@ -23,7 +18,7 @@
       </div>
     <% end %>
 
-    <%= live_component @socket, MiniPlayerComponent, player_id: @player_id, premium?: @premium?, now_playing: @now_playing, devices: @devices, id: :mini_player %>
+    <%= live_component @socket, FullPlayerComponent, player_id: @player_id, premium?: @premium?, now_playing: @now_playing, devices: @devices, id: :mini_player %>
 
     <%= if @premium? do %>
       <script defer src="https://sdk.scdn.co/spotify-player.js"></script>

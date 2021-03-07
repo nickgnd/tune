@@ -26,6 +26,7 @@
       <%= live_component ProgressBarComponent, id: :progress_bar, premium?: @premium?, progress_ms: progress_ms, total_duration_ms: item.duration_ms %>
       <%= if @premium? do %>
         <%= render PlayerView, "controls.html", status: status, device: device %>
+        <%= render PlayerView, "volume.html", status: status, device: device %>
       <% end %>
   <% end %>
 </div>

@@ -1,6 +1,13 @@
 main {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
+
+  &.main--full-player {
+    max-width: 95%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0;
+  }
 }
 
 #explorer {
