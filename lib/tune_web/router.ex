@@ -45,6 +45,8 @@ defmodule TuneWeb.Router do
     live "/albums/:album_id", ExplorerLive, :album_details
     live "/shows/:show_id", ExplorerLive, :show_details
     live "/episodes/:episode_id", ExplorerLive, :episode_details
+
+    live "/full-player", FullPlayerLive, :full_player
   end
 
   # Other scopes may use custom stacks.
