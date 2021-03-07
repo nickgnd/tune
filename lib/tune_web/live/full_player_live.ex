@@ -11,6 +11,7 @@ defmodule TuneWeb.FullPlayerLive do
     AlbumView,
     ArtistView,
     MiniPlayerComponent,
+    FullPlayerComponent,
     PaginationView,
     ProgressBarComponent,
     SearchView,
