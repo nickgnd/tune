@@ -3,6 +3,9 @@
     <% %{status: :not_playing} -> %>
       <%= content_tag :p, gettext("Not playing") %>
     <% %{status: status, item: item, progress_ms: progress_ms, device: device} -> %>
+      <div class="blurried-cover">
+        <%= img_tag thumbnail(item), alt: name(item) %>
+      </div>
       <div class="cover" phx-click="toggle_item_meta">
         <%= img_tag thumbnail(item), alt: name(item) %>
       </div>
