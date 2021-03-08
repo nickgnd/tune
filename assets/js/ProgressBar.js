@@ -1,6 +1,8 @@
 export default {
   mounted() {
     this.el.addEventListener("click", (e) => {
+      e.stopPropagation();
+
       // The progress bar is measure in milliseconds,
       // with `min` set at 0 and `max` at the duration of the track.
       //
