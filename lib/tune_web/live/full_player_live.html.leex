@@ -18,7 +18,14 @@
       </div>
     <% end %>
 
-    <%= live_component @socket, FullPlayerComponent, player_id: @player_id, premium?: @premium?, now_playing: @now_playing, devices: @devices, id: :mini_player %>
+    <%= live_component @socket,
+      FullPlayerComponent,
+      player_id: @player_id,
+      premium?: @premium?,
+      now_playing: @now_playing,
+      devices: @devices,
+      item_meta: @item_meta,
+      id: :full_player %>
 
     <%= if @premium? do %>
       <script defer src="https://sdk.scdn.co/spotify-player.js"></script>

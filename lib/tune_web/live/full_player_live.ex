@@ -19,13 +19,12 @@ defmodule TuneWeb.FullPlayerLive do
     SuggestionsView
   }
 
-  @default_time_range "short_term"
-
   @initial_state [
     type: :track,
     user: nil,
     now_playing: %Player{},
     item: :not_fetched,
+    item_meta: false
   ]
 
   @impl true
@@ -159,6 +158,10 @@ defmodule TuneWeb.FullPlayerLive do
   def handle_event("refresh_devices", _params, socket) do
     :ok = spotify_session().refresh_devices(socket.assigns.session_id)
     {:noreply, socket}
+  end
+
+  def handle_event("toggle_item_meta", _params, socket) do
+    {:noreply, assign(socket, :item_meta, !socket.assigns.item_meta)}
   end
 
   @impl true
