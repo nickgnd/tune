@@ -3,20 +3,29 @@
     <% %{status: :not_playing} -> %>
       <%= content_tag :p, gettext("Not playing") %>
     <% %{status: status, item: item, progress_ms: progress_ms, device: device} -> %>
-      <div>
-        <%= live_patch to: TuneWeb.SearchView.result_link(item, @socket) do %>
-          <%= img_tag thumbnail(item), alt: name(item) %>
-        <% end %>
+      <div class="cover" phx-click="toggle_item_meta">
+        <%= img_tag thumbnail(item), alt: name(item) %>
       </div>
-      <div>
-        <%= render PlayerView, "meta.html", item: item, socket: @socket %>
-        <%= live_component @socket, ProgressBarComponent, id: :progress_bar, premium?: @premium?, progress_ms: progress_ms, total_duration_ms: item.duration_ms %>
-      </div>
-      <div>
-        <%= if @premium? do %>
-          <%= render PlayerView, "controls.html", status: status, device: device %>
-          <%= render PlayerView, "volume.html", status: status, device: device %>
-        <% end %>
+      <div class="overlay <%= if @item_meta, do: "overlay--visibile" %>" phx-click="toggle_item_meta">
+        <div class="meta-container">
+          <%= render PlayerView, "meta.html", item: item, socket: @socket %>
+
+          <%= if @premium? do %>
+            <div class="main-controls">
+              <%= render PlayerView, "controls.html", status: status, device: device %>
+            </div>
+          <% end %>
+
+          <div class="progress-controls">
+            <%= live_component @socket, ProgressBarComponent, id: :progress_bar, premium?: @premium?, progress_ms: progress_ms, total_duration_ms: item.duration_ms %>
+          </div>
+
+          <%= if @premium? do %>
+            <div class="volume-controls">
+              <%= render PlayerView, "volume.html", status: status, device: device %>
+            </div>
+          <% end %>
+        </div>
       </div>
   <% end %>
 </div>
