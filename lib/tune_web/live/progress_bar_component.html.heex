@@ -1,16 +1,17 @@
 <div class="progress">
   <span class="duration"><%= Tune.Duration.hms(@progress_ms) %></span>
   <%= content_tag :label, gettext("Current track position"), for: "progress-bar", class: "visually-hidden" %>
+
+  <% data_test_control = if @premium?, do: "progress", else: nil %>
+
   <progress
     id="progress-bar"
-    <%= if @premium? do %>
-      phx-hook="ProgressBar"
-    <% end %>
-    data-test-control="progress"
-    value="<%= @progress_ms %>"
-    aria-valuenow="<%= @progress_ms %>"
-    max="<%= @total_duration_ms %>"
-    aria-valuemax="<%= @total_duration_ms %>"
+    phx-hook="ProgressBar"
+    data-test-control={data_test_control}
+    value={@progress_ms}
+    aria-valuenow={@progress_ms}
+    max={@total_duration_ms}
+    aria-valuemax={@total_duration_ms}
     tabindex="0">
     <%= Tune.Duration.hms(@progress_ms) %>
   </progress>
