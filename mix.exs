@@ -5,9 +5,9 @@ defmodule Tune.MixProject do
     [
       app: :tune,
       version: "0.1.0",
-      elixir: "~> 1.7",
+      elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:gettext] ++ Mix.compilers(),
       dialyzer: dialyzer(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -35,17 +35,19 @@ defmodule Tune.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.2"},
-      {:phoenix_live_view, "~> 0.16.0"},
-      {:phoenix_html, "~> 3.0.0"},
+      {:phoenix, "~> 1.6.9"},
+      {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_html, "~> 3.2.0"},
+      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
       {:ex_autolink, "~> 0.2.0"},
-      {:gettext, "~> 0.11"},
-      {:phoenix_live_dashboard, "~> 0.5.0"},
+      {:gettext, "~> 0.18"},
+      {:phoenix_live_dashboard, "~> 0.6"},
+      {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
       {:circular_buffer, "~> 0.4.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:jason, "~> 1.2"},
+      {:plug_cowboy, "~> 2.5"},
       {:ueberauth_spotify, "~> 0.2.1"},
       {:finch, "~> 0.9.0"},
       {:gen_state_machine, "~> 3.0"},
@@ -57,7 +59,7 @@ defmodule Tune.MixProject do
       {:telemetry_metrics_appsignal, "~> 1.1"},
       {:ex_doc, "~> 0.22", only: :dev, runtime: false},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:floki, ">= 0.0.0", only: :test},
+      {:floki, ">= 0.30.0", only: :test},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:credo, "~> 1.6.4", only: [:dev, :test], runtime: false},
       {:mox, "~> 1.0", only: :test},
@@ -74,7 +76,12 @@ defmodule Tune.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "cmd npm install --prefix assets"]
+      setup: ["deps.get"],
+      "assets.deploy": [
+        "esbuild default --minify",
+        "sass default --no-source-map --style=compressed",
+        "phx.digest"
+      ]
     ]
   end
 

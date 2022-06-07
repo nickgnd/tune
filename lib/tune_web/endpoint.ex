@@ -16,10 +16,6 @@ defmodule TuneWeb.Endpoint do
     max_age: 24 * 60 * 60 * 365
   ]
 
-  socket "/socket", TuneWeb.UserSocket,
-    websocket: true,
-    longpoll: false
-
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
@@ -30,7 +26,7 @@ defmodule TuneWeb.Endpoint do
     at: "/",
     from: :tune,
     gzip: false,
-    only_matching: ~w(css fonts images js favicon robots)
+    only: ~w(assets fonts images favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
